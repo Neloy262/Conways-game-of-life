@@ -13,7 +13,7 @@ function Grid() {
 
   useEffect(() => {
     if (running) {
-      setTimeout(play, 200);
+      setTimeout(play, 100);
     }
   }, [running, grid]);
 
@@ -73,7 +73,7 @@ function Grid() {
     for (let i = 0; i < dim; i++) {
       for (let j = 0; j < dim; j++) {
         if (i === row && j === col) {
-          temp[i][j] = true;
+          temp[i][j] = !temp[i][j];
           setGrid(temp);
           // setPrevGrid(temp);
           break;
@@ -119,9 +119,19 @@ function Grid() {
     setRunning(!running);
     // setTimeout(startSim, 1500);
   };
+  const stopSim = () => {
+    setRunning(!running);
+  };
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+        marginTop: "20px",
+      }}
+    >
       <div
         style={{ display: "grid", gridTemplateColumns: `repeat(${dim},25px)` }}
       >
@@ -143,9 +153,12 @@ function Grid() {
         })}
       </div>
       <button onClick={startSim} type="button">
-        Click Me!
+        Start
       </button>
-    </>
+      <button onClick={stopSim} type="button">
+        Stop
+      </button>
+    </div>
   );
 }
 
